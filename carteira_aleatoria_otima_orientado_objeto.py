@@ -90,7 +90,7 @@ class PortfolioOptimization:
             print(f"Retorno Médio Diário: {retorno_medio_carteira_percentual:.2f}%")
             print(f"Desvio Padrão Diário: {desvio_padrao_percentual:.2f}%")
             print(f"Retorno Médio Anual da Carteira: {media_anual:.2f}%")
-            print(f"Desvio Padrão Anual dos Retornos: {desvio_padrao_anual:.2f}%")
+            print(f"Desvio Padrão do Retorno Médio Anual da Carteira: {desvio_padrao_anual:.2f}%")
             print(f"Retorno Acumulado: {retorno_acumulado_carteira:.4f}")
             
             # Criar uma lista de ativo com for 
@@ -114,8 +114,8 @@ if __name__ == "__main__":
                     'VIVT3.SA', 'WEGE3.SA', 'YDUQ3.SA']
 
     # Intervalo de Datas para análise 
-    inicio_dados = '2023-01-01'
-    final_dados = '2023-05-01'
+    inicio_dados = '2024-01-01'
+    final_dados = '2024-05-01'
     print(f"Para teste inicial, verifique se existe carteira que retone 12% de retorno para os 4 meses analisandos, digite: 1.12")
     valor_desejado = float(input("Informe o valor desejado de retorno acumulado: "))
 
