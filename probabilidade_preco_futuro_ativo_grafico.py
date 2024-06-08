@@ -51,10 +51,10 @@ def calcular_probabilidade_acima_preco_atual(precos_simulados_df, preco_atual):
     return probabilidade
 
 def main():
-    Ativos = ['BRFS3.SA', 'SCAR3.SA', 'TEKA4.SA', 'BRKM5.SA']
-    ticker = Ativos[3]
-    inicio_dados = '2024-01-29'
-    final_dados = '2024-05-29'
+    Ativos = ['AZUL4.SA', 'MGLU3.SA', 'GRND3.SA', 'VIVT3.SA']
+    ticker = Ativos[0]
+    inicio_dados = '2023-01-01'
+    final_dados = '2023-05-01'
     num_simulacoes = 1000
     num_dias = 60
 
@@ -66,7 +66,7 @@ def main():
         preco_atual = precos_simulados_df.iloc[0, 0] * 1.00
 
         # Calcular e imprimir a probabilidade do preço futuro estar acima do preço atual após 90 dias
-        probabilidade_acima_preco_atual = calcular_probabilidade_acima_preco_atual(precos_simulados_df, preco_atual * 1.00)
+        probabilidade_acima_preco_atual = calcular_probabilidade_acima_preco_atual(precos_simulados_df, preco_atual)
         print(f"Probabilidade do preço futuro estar acima do preço atual após 60 dias: {probabilidade_acima_preco_atual:.2%}")
     
         # Plotar os preços simulados
@@ -89,5 +89,6 @@ def main():
     
 if __name__ == "__main__":
     main()
+   
    
    

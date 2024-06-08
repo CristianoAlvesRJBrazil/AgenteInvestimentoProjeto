@@ -83,17 +83,23 @@ class PortfolioOptimization:
             media_anual = (1 + retorno_medio_carteira) ** dias_uteis_ano - 1
             desvio_padrao_anual = desvio_padrao * np.sqrt(dias_uteis_ano)
 
-            print("Carteira Vencedora:")
-            print("Ativos =", carteira_vencedora[0])
+            print("Resultados da Carteira Vencedora:")
+            print("Carteira Vencedora =", carteira_vencedora[0])
             print("Retorno Médio Diário:", retorno_medio_carteira)
             print("Desvio Padrão Diário:", desvio_padrao)
             print(f"Média Anual dos Retornos: {media_anual:.4f}")
             print(f"Desvio Padrão Anual dos Retornos: {desvio_padrao_anual:.4f}")
             print("Retorno Acumulado:", retorno_acumulado_carteira)
-        return carteira_vencedora[0]
+            
+            # Criar uma lista de ativo com for 
+            ativo = []
+            for vencedora in carteira_vencedora[0]:
+                ativo.append(vencedora)
+            #print("Carteira Vencedora =", ativo)
+            return ativo
 
 if __name__ == "__main__":
-    #'TEKA3.SA',
+    # Lista de ativos da B3
     lista_ativos = ['ABEV3.SA', 'AZUL4.SA', 'B3SA3.SA', 'BBAS3.SA', 'BBDC3.SA', 'BBDC4.SA', 'BBSE3.SA', 'BRAP4.SA',
                     'BRFS3.SA', 'BRKM5.SA', 'CASH3.SA', 'CCRO3.SA', 'CIEL3.SA', 'CMIG4.SA', 'COGN3.SA', 'CPFE3.SA',
                     'CPLE6.SA', 'CRFB3.SA', 'CSAN3.SA', 'CSNA3.SA', 'CVCB3.SA', 'CYRE3.SA', 'DIRR3.SA', 'ECOR3.SA',
@@ -105,11 +111,14 @@ if __name__ == "__main__":
                     'TCSA3.SA', 'TECN3.SA', 'TIMS3.SA', 'TOTS3.SA', 'UGPA3.SA', 'USIM5.SA', 'VALE3.SA',
                     'VIVT3.SA', 'WEGE3.SA', 'YDUQ3.SA']
 
-    inicio_dados = '2024-01-01'
-    final_dados = '2024-05-01'
+    # Intervalo de Datas para análise 
+    inicio_dados = '2023-01-01'
+    final_dados = '2023-05-01'
     print(f"Para teste inicial, verifique se existe carteira que retone 12% de retorno para os 4 meses analisandos, digite: 1.12")
     valor_desejado = float(input("Informe o valor desejado de retorno acumulado: "))
 
+    # Chamando o otmizador de carteira, selecionando o retorno desejado, selecionando a carteira vencedora
     otimizador = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
-    otimizador.otimizar_carteira(valor_desejado)
+    ativo = otimizador.otimizar_carteira(valor_desejado)
+    print("Carteira Vencedora =", ativo)
 
