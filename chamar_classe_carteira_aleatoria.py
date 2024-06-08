@@ -9,7 +9,7 @@ def main(lista_ativos, inicio_dados, final_dados, valor_desejado):
 
     # Otimização da carteira
     carteira_vencedora = portfolio.otimizar_carteira(valor_desejado)
-    #print("Carteira Vencedora =", carteira_vencedora)
+    
     return carteira_vencedora
 
 if __name__ == "__main__":
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     # Intervalo de dados
     inicio_dados = '2024-01-01'
     final_dados = '2024-05-01'
-    valor_desejado = 1.16
+    valor_desejado = 1.24
     
     main(lista_ativos, inicio_dados, final_dados, valor_desejado)
 
