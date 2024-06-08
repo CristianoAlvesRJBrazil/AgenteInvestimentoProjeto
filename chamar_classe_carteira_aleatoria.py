@@ -21,5 +21,5 @@ portfolio = carteira_aleatoria_otima_orientado_objeto.PortfolioOptimization(list
 
 # Otimização da carteira
 carteira_vencedora = portfolio.otimizar_carteira(valor_desejado=1.24)
-print("Carteira Vencedora =", carteira_vencedora)
+#print("Carteira Vencedora =", carteira_vencedora)
 

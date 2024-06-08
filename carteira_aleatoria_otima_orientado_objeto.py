@@ -78,18 +78,20 @@ class PortfolioOptimization:
             print(f"Não foi possível encontrar uma carteira que atendesse ao valor desejado de retorno acumulado após {max_iteracoes} iterações.")
         else:
             retorno_medio_carteira = self.calcular_retorno_medio(carteira_vencedora[1])
+            retorno_medio_carteira_percentual = retorno_medio_carteira * 100
             desvio_padrao = self.calcular_desvio_padrao(carteira_vencedora[1])
+            desvio_padrao_percentual = desvio_padrao * 100
             dias_uteis_ano = 252
-            media_anual = (1 + retorno_medio_carteira) ** dias_uteis_ano - 1
-            desvio_padrao_anual = desvio_padrao * np.sqrt(dias_uteis_ano)
+            media_anual = ((1 + retorno_medio_carteira) ** dias_uteis_ano - 1) * 100
+            desvio_padrao_anual = (desvio_padrao * np.sqrt(dias_uteis_ano)) * 100
 
             print("Resultados da Carteira Vencedora:")
-            print("Carteira Vencedora =", carteira_vencedora[0])
-            print("Retorno Médio Diário:", retorno_medio_carteira)
-            print("Desvio Padrão Diário:", desvio_padrao)
-            print(f"Média Anual dos Retornos: {media_anual:.4f}")
-            print(f"Desvio Padrão Anual dos Retornos: {desvio_padrao_anual:.4f}")
-            print("Retorno Acumulado:", retorno_acumulado_carteira)
+            print(f"Carteira Vencedora = {carteira_vencedora[0]}")
+            print(f"Retorno Médio Diário: {retorno_medio_carteira_percentual:.2f}%")
+            print(f"Desvio Padrão Diário: {desvio_padrao_percentual:.2f}%")
+            print(f"Retorno Médio Anual da Carteira: {media_anual:.2f}%")
+            print(f"Desvio Padrão Anual dos Retornos: {desvio_padrao_anual:.2f}%")
+            print(f"Retorno Acumulado: {retorno_acumulado_carteira:.4f}")
             
             # Criar uma lista de ativo com for 
             ativo = []
@@ -121,4 +123,5 @@ if __name__ == "__main__":
     otimizador = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
     ativo = otimizador.otimizar_carteira(valor_desejado)
     print("Carteira Vencedora =", ativo)
+
 
