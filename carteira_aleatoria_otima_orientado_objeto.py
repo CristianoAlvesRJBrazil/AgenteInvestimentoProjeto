@@ -20,7 +20,7 @@ class PortfolioOptimization:
         retornos = dados.pct_change().dropna()
         return retornos
 
-    def simular_carteiras(self, num_carteiras=100, num_ativos=4):
+    def simular_carteiras(self, num_carteiras=1000, num_ativos=10):
         """Simula carteiras aleatórias com os ativos disponíveis."""
         carteiras = []
         for _ in range(num_carteiras):

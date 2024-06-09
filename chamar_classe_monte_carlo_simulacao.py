@@ -5,8 +5,8 @@ import MonteCarloSimulationCarteiraOB
 
 # Intervalo de dados e retorno acumulado desejando
 inicio_dados = '2024-01-01'
-final_dados = '2024-05-01'
-valor_desejado = 1.24
+final_dados = '2024-06-01'
+valor_desejado = 1.10
 
 # Acessar a lista de ativos e escolher a carteira otimizada    
 lista_ativos = lista_ativos_setores.lista_atual_ibxx_02
@@ -18,7 +18,12 @@ ticker =  carteira_vencedora
 num_simulacoes = 1000
 num_dias = 60
 MonteCarloSimulationCarteiraOB.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
+# retorno_acumulado = portfolio.calcular_retorno_acumulado(carteira_vencedora[1])
+print(f"Carteira vencedora = {carteira_vencedora}")
+# print(f"Retorno Acumulado da Carteira: {retorno_acumulado}")
 
-# Carteira Vencedora = ['RRRP3.SA' 'EMBR3.SA' 'PSSA3.SA' 'CIEL3.SA']
+# Resultados da Predição:
+# Probabilidade do preço futuro estar acima do preço atual após 60 dias: 79.10%
+# Carteira vencedora: ['TEND3.SA', 'VIVA3.SA', 'SMFT3.SA', 'ECOR3.SA', 'BRKM5.SA', 'CYRE3.SA', 'BPAC11.SA', 'LREN3.SA', 'CSNA3.SA', 'BBDC3.SA']
 
 
