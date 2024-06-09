@@ -6,6 +6,7 @@ def main():
     
     # URL da página
     url = 'https://www.dadosdemercado.com.br/b3/ibxx'
+    #url = 'https://www.dadosdemercado.com.br/acoes'
 
     # Faz a solicitação HTTP para obter o conteúdo da página
     response = requests.get(url)
@@ -24,7 +25,8 @@ def main():
         
         # Converte a tabela HTML para um DataFrame do pandas
         df = pd.read_html(first_table_html)[0]
-        lista_ativos = df['Código'].copy()
+        #lista_ativos = df['Código'].copy()
+        lista_ativos = df['Ticker'].copy()
         lista_ativos = lista_ativos.to_list()
         # Exibe o DataFrame
         #print("Primeira Tabela:")
@@ -49,6 +51,7 @@ lista_atual_ibxx_02 = ['VALE3.SA', 'PETR4.SA', 'ITUB4.SA', 'PETR3.SA', 'BBAS3.SA
 
 if __name__ == "__main__":
     lista_atual_ibxx_01 = main()
+    print(lista_atual_ibxx_01)
 
 
       
