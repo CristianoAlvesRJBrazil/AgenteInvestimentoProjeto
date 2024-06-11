@@ -2,28 +2,34 @@
 import lista_ativos_setores
 import carteira_aleatoria_otima_orientado_objeto
 import MonteCarloSimulationCarteiraOB
+import MonteCarloSimulationV2
 
-# Intervalo de dados e retorno acumulado desejando
-inicio_dados = '2024-01-01'
-final_dados = '2024-06-01'
-valor_desejado = 1.10
+def main(inicio_dados, final_dados, valor_desejado):
+    # Acessar a lista de ativos e escolher a carteira otimizada    
+    lista_ativos = lista_ativos_setores.lista_ibov
+    portfolio = carteira_aleatoria_otima_orientado_objeto.PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
+    carteira_vencedora = portfolio.otimizar_carteira(valor_desejado)
 
-# Acessar a lista de ativos e escolher a carteira otimizada    
-lista_ativos = lista_ativos_setores.lista_atual_ibxx_02
-portfolio = carteira_aleatoria_otima_orientado_objeto.PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
-carteira_vencedora = portfolio.otimizar_carteira(valor_desejado)
+    # Chamar as classes MonteCarloSimulation
+    ticker =  carteira_vencedora
+    num_simulacoes = 1000
+    num_dias = 60
+    MonteCarloSimulationCarteiraOB.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
+    MonteCarloSimulationV2.main(ticker, inicio_dados, final_dados)
 
-# Chamar a classe MonteCarloSimulationCarteiraOB
-ticker =  carteira_vencedora
-num_simulacoes = 1000
-num_dias = 60
-MonteCarloSimulationCarteiraOB.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
-# retorno_acumulado = portfolio.calcular_retorno_acumulado(carteira_vencedora[1])
-print(f"Carteira vencedora = {carteira_vencedora}")
-# print(f"Retorno Acumulado da Carteira: {retorno_acumulado}")
+    # retorno_acumulado = portfolio.calcular_retorno_acumulado(carteira_vencedora[1])
+    print(f"Carteira vencedora = {carteira_vencedora}")
+    # print(f"Retorno Acumulado da Carteira: {retorno_acumulado}")
 
-# Resultados da Predição:
-# Probabilidade do preço futuro estar acima do preço atual após 60 dias: 79.10%
-# Carteira vencedora: ['TEND3.SA', 'VIVA3.SA', 'SMFT3.SA', 'ECOR3.SA', 'BRKM5.SA', 'CYRE3.SA', 'BPAC11.SA', 'LREN3.SA', 'CSNA3.SA', 'BBDC3.SA']
-
+    # Resultados da Predição:
+    # Probabilidade do preço futuro estar acima do preço atual após 60 dias: 92.50%
+    # Carteira vencedora = ['ENAT3.SA', 'STBP3.SA', 'PETR3.SA', 'RRRP3.SA']
+    pass
+    
+if __name__ == "__main__":
+    # Intervalo de dados e retorno acumulado desejando
+    inicio_dados = '2023-02-05'
+    final_dados = '2023-06-05'
+    valor_desejado = 1.24
+    main(inicio_dados, final_dados, valor_desejado)
 
