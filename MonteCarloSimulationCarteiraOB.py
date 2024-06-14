@@ -90,7 +90,7 @@ def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
     if precos_simulados_df is not None:
         probabilidade_acima_preco_atual = simulacao.calcular_probabilidade_acima_preco_atual()
         print(f"Resultados da Predição:")
-        print(f"Probabilidade do preço futuro estar acima do preço atual após 60 dias: {probabilidade_acima_preco_atual:.2%}")
+        print(f"Probabilidade do preço futuro estar acima do preço atual nos próximos 60 dias: {probabilidade_acima_preco_atual:.2%}")
         
         simulacao.plotar_precos_simulados()
         simulacao.plotar_distribuicao_precos_futuros()
@@ -98,7 +98,7 @@ def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
 if __name__ == "__main__":
     # Importação das bibliotecas necessárias
     import lista_ativos_setores
-    import carteira_aleatoria_otima_orientado_objeto
+    from carteira_aleatoria_otima_orientado_objeto import PortfolioOptimization
     
     # Intervalo de dados e retorno acumulado desejando
     inicio_dados = '2024-01-01'
@@ -107,11 +107,11 @@ if __name__ == "__main__":
     
     # Acessar a lista de ativos e escolher a carteira otimizada    
     lista_ativos = lista_ativos_setores.lista_atual_ibxx_02
-    portfolio = carteira_aleatoria_otima_orientado_objeto.PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
+    portfolio = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
     carteira_vencedora = portfolio.otimizar_carteira(valor_desejado)
         
     # Chamar a classe MonteCarloSimulationCarteiraOB
-    ticker =  carteira_vencedora
+    ticker = carteira_vencedora
     num_simulacoes = 1000
     num_dias = 60
     main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)

@@ -97,7 +97,6 @@ class PortfolioOptimization:
             ativo = []
             for vencedora in carteira_vencedora[0]:
                 ativo.append(vencedora)
-            #print("Carteira Vencedora =", ativo)
             return ativo
 
 if __name__ == "__main__":
@@ -114,6 +113,5 @@ if __name__ == "__main__":
     # Chamando o otmizador de carteira, selecionando o retorno desejado, selecionando a carteira vencedora
     otimizador = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
     ativo = otimizador.otimizar_carteira(valor_desejado)
-    print("Carteira Vencedora =", ativo)
-
+    print(f"Carteira Vencedora = {ativo}")
 

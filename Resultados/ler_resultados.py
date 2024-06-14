@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # Nome do arquivo CSV a ser lido
-filename = '/home/cristianoalves/Agente/MultiAgenteArtigo/Resultados/resultados.csv'
+filename = '/home/cristianoalves/Agente/MultiAgenteArtigo/Resultados/resultados15.csv'
 
 # Verifica se o arquivo existe
 if not os.path.isfile(filename):
