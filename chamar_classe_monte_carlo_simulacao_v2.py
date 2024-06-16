@@ -77,4 +77,3 @@ if __name__ == "__main__":
     simulacao = PortfolioSimulation(inicio_dados, final_dados, valor_desejado)
     simulacao.run()
 
-
