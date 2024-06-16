@@ -22,7 +22,6 @@ class PrecoEstoque:
 if __name__ == "__main__":
     
     preco_estoque = PrecoEstoque()
-    
     # Buscando dados da carteira - Intervalo Inicial Real
     ticker = ['TEND3.SA', 'PETZ3.SA', 'POMO4.SA', 'TIMS3.SA']
     inicio_dados = '2023-01-01'
@@ -57,7 +56,5 @@ if __name__ == "__main__":
     else:
         print(f"O Agente não acertou a tendência!!!")
 
-    
-    
-    
-    
+      
+        

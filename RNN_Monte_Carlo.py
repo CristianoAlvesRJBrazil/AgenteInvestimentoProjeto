@@ -125,7 +125,7 @@ if __name__ == "__main__":
     
     # Parâmetros de entrada
     Carteira_vencedora = ['BBAS3.SA', 'BPAC11.SA', 'EMBR3.SA', 'SMTO3.SA']
-    ticker = Carteira_vencedora[2]  # Substitua pelo ticker desejado
+    ticker = Carteira_vencedora[0]  # Substitua pelo ticker desejado
     data_inicio = '2022-01-02'
     data_fim = '2023-05-02'
     

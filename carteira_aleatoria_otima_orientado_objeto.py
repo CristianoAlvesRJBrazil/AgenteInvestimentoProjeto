@@ -54,12 +54,14 @@ class PortfolioOptimization:
         return carteira_vencedora
 
     def obter_dados_ibov(self, inicio_dados, final_dados):
+        """Obtém os dados históricos de fechamento do Ibovespa."""
         lista_indicador = ['^BVSP']
         ibov = yf.download(lista_indicador, start=inicio_dados, end=final_dados)['Close']
         retorno_ibov = self.calcular_retornos_percentuais(ibov)
         return retorno_ibov
 
     def otimizar_carteira(self, valor_desejado, max_iteracoes=10000):
+        """Obtém a carteira otimizada com rendimento acima do Ibovespa."""
         iteracao_atual = 0
         carteira_vencedora = None
         retorno_ibov = self.obter_dados_ibov(self.inicio_dados, self.final_dados)
@@ -101,8 +103,8 @@ class PortfolioOptimization:
 
 if __name__ == "__main__":
     # Lista de ativos da B3
-    import lista_ativos_setores
-    lista_ativos = lista_ativos_setores.lista_atual_ibxx_02
+    import lista_ativos_setores as las
+    lista_ativos = las.lista_atual_ibxx_02
     
     # Intervalo de Datas para análise 
     inicio_dados = '2023-01-02'

@@ -20,11 +20,11 @@ def identify_uptrends(data):
     return data
 
 # Parâmetros do ativo e período
-#Ativos = ['IRBR3.SA', 'TEND3.SA', 'NTCO3.SA', 'IGTI11.SA']
-Ativos = ['UGPA3.SA', 'MRVE3.SA', 'COGN3.SA', 'VIVA3.SA']
+#Ativos = ['ECOR3.SA', 'MGLU3.SA', 'SMTO3.SA', 'TEND3.SA']
+Ativos = ['MULT3.SA', 'BRFS3.SA', 'ENAT3.SA', 'EMBR3.SA']
 ticker = Ativos[3]
-start_date = '2023-02-01'
-end_date = '2023-09-01'
+start_date = '2023-01-01'
+end_date = '2024-08-01'
 short_window = 9
 long_window = 21
 
