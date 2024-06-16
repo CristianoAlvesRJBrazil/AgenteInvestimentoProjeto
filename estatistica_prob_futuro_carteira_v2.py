@@ -89,7 +89,7 @@ def main():
 if __name__ == "__main__":
     
     # Configurações para a simulação
-    ticker = ['UGPA3.SA', 'TEND3.SA', 'CMIG4.SA', 'VIVT3.SA']
+    ticker = ['TEND3.SA', 'PETZ3.SA', 'POMO4.SA', 'TIMS3.SA']
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
     num_simulacoes = 1000

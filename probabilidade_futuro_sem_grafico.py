@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance as yf
 
 def simulacao_monte_carlo(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
+    """ Realiza simulação de Monte Carlo para uma carteria de investimento. """
     try:
         # Obter dados históricos do estoque
         dados_estoque = yf.download(ticker, start=inicio_dados, end=final_dados)['Close'].mean(axis=1)
@@ -54,11 +55,11 @@ def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
         probabilidade_acima_preco_atual = calcular_probabilidade_acima_preco_atual(precos_simulados_df, preco_atual)
         #print()
         print(f"Probabilidade do preço futuro estar acima do preço atual: {probabilidade_acima_preco_atual:.2%}")
-    return probabilidade_acima_preco_atual, precos_simulados_df.max().mean()
+        precos_simulados = precos_simulados_df.max().mean() - (precos_simulados_df.max().mean()*0.1140)
+    return probabilidade_acima_preco_atual, precos_simulados
 
 if __name__ == "__main__":
-    
-    ticker = ['CPFE3.SA', 'ECOR3.SA', 'EMBR3.SA', 'SMFT3.SA']
+    ticker = ['IRBR3.SA', 'TEND3.SA', 'NTCO3.SA', 'IGTI11.SA']
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
     num_simulacoes = 1000

@@ -24,7 +24,7 @@ if __name__ == "__main__":
     preco_estoque = PrecoEstoque()
     
     # Buscando dados da carteira - Intervalo Inicial Real
-    ticker = ['UGPA3.SA', 'TEND3.SA', 'CMIG4.SA', 'VIVT3.SA']
+    ticker = ['TEND3.SA', 'PETZ3.SA', 'POMO4.SA', 'TIMS3.SA']
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
     preco_atual_real = preco_estoque.obter_preco_atual(ticker, inicio_dados, final_dados)
@@ -49,8 +49,8 @@ if __name__ == "__main__":
     print(f"Resultado do Backtesting para carteira: {ticker}")
     print(f"Probabilidade mediana do preço futuro estar acima do esperado: {round(dados['Probabilidade'].median(), 4) * 100}%")
     print(f"Probabilidade do preço futuro estar acima do preço atual simulado agora: {probabilidade_acima_preco_atual:.2%}")        
-    print(f"Retono_Acumulado_Simulado = {retorno_acumulado_simulado}")
-    print(f"Retono_Acumulado_Real = {retorno_acumulado_real}")
+    print(f"Retorno_Acumulado_Simulado = {retorno_acumulado_simulado}")
+    print(f"Retorno_Acumulado_Real = {retorno_acumulado_real}")
     
     if retorno_acumulado_simulado and retorno_acumulado_real > 1.00:
         print(f"O Agente acertou a tendência de alta!!!")
