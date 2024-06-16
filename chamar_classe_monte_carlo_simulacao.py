@@ -16,18 +16,12 @@ def main(inicio_dados, final_dados, valor_desejado):
     num_dias = 60
     MonteCarloSimulationCarteiraOB.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
     
-    # Imprimir Gráfico da simulação de Monte Carlo com histórico passado no gráfico
+    # Gráfico da simulação de Monte Carlo com histórico passado no gráfico
     MonteCarloSimulationV2.main(ticker, inicio_dados, final_dados)
 
-    # retorno_acumulado = portfolio.calcular_retorno_acumulado(carteira_vencedora[1])
+    # Retorno_acumulado = portfolio.calcular_retorno_acumulado(carteira_vencedora[1])
     print(f"Carteira vencedora = {carteira_vencedora}")
-    # print(f"Retorno Acumulado da Carteira: {retorno_acumulado}")
-
-    # Resultados da Predição:
-    # Probabilidade do preço futuro estar acima do preço atual após 60 dias: 92.50%
-    # Carteira vencedora = ['ENAT3.SA', 'STBP3.SA', 'PETR3.SA', 'RRRP3.SA']
-    pass
-    
+       
 if __name__ == "__main__":
     # Intervalo de dados e retorno acumulado desejando
     inicio_dados = '2023-01-02'

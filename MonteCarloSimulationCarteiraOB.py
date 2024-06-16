@@ -1,7 +1,10 @@
+# Importação das bibliotecas necessárias
 import numpy as np
 import pandas as pd
 import yfinance as yf
 import matplotlib.pyplot as plt
+import lista_ativos_setores as las
+from carteira_aleatoria_otima_orientado_objeto import PortfolioOptimization
 
 class MonteCarloSimulation:
     def __init__(self, ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
@@ -96,17 +99,13 @@ def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
         simulacao.plotar_distribuicao_precos_futuros()
 
 if __name__ == "__main__":
-    # Importação das bibliotecas necessárias
-    import lista_ativos_setores
-    from carteira_aleatoria_otima_orientado_objeto import PortfolioOptimization
-    
     # Intervalo de dados e retorno acumulado desejando
     inicio_dados = '2024-01-01'
     final_dados = '2024-05-01'
     valor_desejado = 1.24
     
     # Acessar a lista de ativos e escolher a carteira otimizada    
-    lista_ativos = lista_ativos_setores.lista_atual_ibxx_02
+    lista_ativos = las.lista_atual_ibxx_02
     portfolio = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
     carteira_vencedora = portfolio.otimizar_carteira(valor_desejado)
         
@@ -115,5 +114,6 @@ if __name__ == "__main__":
     num_simulacoes = 1000
     num_dias = 60
     main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
+
 
 
