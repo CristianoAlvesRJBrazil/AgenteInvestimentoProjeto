@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 import probabilidade_futuro_sem_grafico as pfsg
-import estatistica_prob_futuro_carteira_v2 as epfc2
+import estatistica_prob_futuro_carteira_v2 as epfcv2
 
 class PrecoEstoque:
     def __init__(self):
@@ -20,22 +20,30 @@ class PrecoEstoque:
         return preco_futuro / preco_atual
 
 if __name__ == "__main__":
+    # Configurações para a simulação
+    df = pd.read_csv('resultados.csv')
+    title_column = df.columns[0]
+    ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
+    inicio_dados = '2023-02-01'
+    final_dados = '2023-06-01'
+    valor_desejado = 1.20
+    num_simulacoes = 100
+    num_dias = 60
+    resultados = epfcv2.executar_simulacoes(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
+    epfcv2.salvar_resultados_csv(resultados) 
     
+    # Obtendo o Preço atual        
     preco_estoque = PrecoEstoque()
-    # Buscando dados da carteira - Intervalo Inicial Real
-    ticker = ['TEND3.SA', 'PETZ3.SA', 'POMO4.SA', 'TIMS3.SA']
-    inicio_dados = '2023-01-01'
-    final_dados = '2023-05-01'
+    inicio_dados = '2023-02-01'
+    final_dados = '2023-06-01'
     preco_atual_real = preco_estoque.obter_preco_atual(ticker, inicio_dados, final_dados)
     
     # Simulando a probabilidade do preço futuro estar acima do preço atual - Monte Carlo
-    num_simulacoes = 1000
-    num_dias = 60    
     probabilidade_acima_preco_atual, preco_futuro_simulado = pfsg.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
     
     # Buscando dados da carteira - Intervalo Futuro Real
-    inicio_dados = '2023-05-01'
-    final_dados = '2023-08-01'
+    inicio_dados = '2023-06-01'
+    final_dados = '2023-09-01'
     preco_futuro_real = preco_estoque.obter_preco_futuro(ticker, inicio_dados, final_dados)
     
     # Calculando os Retornos Acumulados do Real e do Simulado    
@@ -43,7 +51,7 @@ if __name__ == "__main__":
     retorno_acumulado_simulado = preco_estoque.calcular_retorno_acumulado(preco_futuro_simulado, preco_atual_real)
     
     # Resultado do Backtesting
-    dados = epfc2.ler_dados_csv()
+    dados = epfcv2.ler_dados_csv()
     print()
     print(f"Resultado do Backtesting para carteira: {ticker}")
     print(f"Probabilidade mediana do preço futuro estar acima do esperado: {round(dados['Probabilidade'].median(), 4) * 100}%")

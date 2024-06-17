@@ -55,7 +55,7 @@ def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
         probabilidade_acima_preco_atual = calcular_probabilidade_acima_preco_atual(precos_simulados_df, preco_atual)
         #print()
         print(f"Probabilidade do preço futuro estar acima do preço atual: {probabilidade_acima_preco_atual:.2%}")
-        precos_simulados = precos_simulados_df.max().mean() - (precos_simulados_df.max().mean()*0.1140)
+        precos_simulados = precos_simulados_df.max().mean()
     return probabilidade_acima_preco_atual, precos_simulados
 
 if __name__ == "__main__":

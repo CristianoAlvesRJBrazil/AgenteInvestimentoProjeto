@@ -69,9 +69,9 @@ class PortfolioSimulation:
 
 if __name__ == "__main__":
     # Intervalo de dados e retorno acumulado desejado
-    inicio_dados = '2023-01-02'
-    final_dados = '2023-05-02'
-    valor_desejado = 1.24
+    inicio_dados = '2024-02-14'
+    final_dados = '2024-06-14'
+    valor_desejado = 1.20
 
     # Cria e executa a simulação de portfólio
     simulacao = PortfolioSimulation(inicio_dados, final_dados, valor_desejado)

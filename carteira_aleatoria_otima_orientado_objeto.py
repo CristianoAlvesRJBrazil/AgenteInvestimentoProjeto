@@ -20,7 +20,7 @@ class PortfolioOptimization:
         retornos = dados.pct_change().dropna()
         return retornos
 
-    def simular_carteiras(self, num_carteiras=100, num_ativos=4):
+    def simular_carteiras(self, num_carteiras=1000, num_ativos=4):
         """Simula carteiras aleatórias com os ativos disponíveis."""
         carteiras = []
         for _ in range(num_carteiras):
@@ -99,7 +99,7 @@ class PortfolioOptimization:
             ativo = []
             for vencedora in carteira_vencedora[0]:
                 ativo.append(vencedora)
-            return ativo
+            return ativo, retorno_acumulado_carteira
 
 if __name__ == "__main__":
     # Lista de ativos da B3
