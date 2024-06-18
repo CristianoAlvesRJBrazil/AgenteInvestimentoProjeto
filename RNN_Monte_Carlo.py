@@ -18,7 +18,7 @@ class StockPredictor:
 
     def obter_dados(self):
         """Baixa dados históricos dos preços de fechamento do ativo."""
-        dados = yf.download(self.ticker, start=self.data_inicio, end=self.data_fim)['Close']
+        dados = yf.download(self.ticker, start=self.data_inicio, end=self.data_fim)['Close'].mean(axis=1)
         return dados
 
     def preprocessar_dados(self):
@@ -40,14 +40,14 @@ class StockPredictor:
         modelo = Sequential()
         modelo.add(LSTM(units=100, return_sequences=True, input_shape=(self.janela, 1)))
         modelo.add(Dropout(0.2))
-        modelo.add(LSTM(units=300, return_sequences=False))
+        modelo.add(LSTM(units=250, return_sequences=False))
         modelo.add(Dropout(0.2))
         modelo.add(Dense(units=1))
 
         modelo.compile(optimizer='adam', loss='mean_squared_error')
         return modelo
     
-    def treinar_modelo(self, X_train, y_train, epochs=20, batch_size=64):
+    def treinar_modelo(self, X_train, y_train, epochs=5, batch_size=64):
         """Treina o modelo LSTM."""
         self.modelo = self.construir_modelo()
         self.modelo.fit(X_train, y_train, epochs=epochs, batch_size=batch_size)
@@ -90,7 +90,7 @@ class StockPredictor:
 
         return previsoes_mc
 
-    def plotar_previsao_com_mc(self, dias_previsao=30, num_simulacoes=1000):
+    def plotar_previsao_com_mc(self, dias_previsao=60, num_simulacoes=1000):
         """Plota os preços reais, previstos e as simulações de Monte Carlo."""
         previsao_base = self.prever_precos_futuros(dias_previsao)
         previsoes_mc = self.simular_monte_carlo(dias_previsao, num_simulacoes)
@@ -108,6 +108,8 @@ class StockPredictor:
         plt.ylabel('Preço')
         plt.legend()
         plt.show()
+        
+        return previsao_base[-1], previsoes_mc.max().max()
 
 def main(ticker, data_inicio, data_fim):
     
@@ -119,13 +121,22 @@ def main(ticker, data_inicio, data_fim):
     previsor.treinar_modelo(X_train, y_train)
 
     # Prever preços futuros e plotar os resultados com Monte Carlo
-    previsor.plotar_previsao_com_mc(dias_previsao=60, num_simulacoes=1000)
-
+    #previsor.plotar_previsao_com_mc(dias_previsao=60, num_simulacoes=1000)
+    
+    ultimo_dado = previsor.obter_dados()
+    ultimo_dado_real = ultimo_dado[-1]
+    ultimo_dado_simulado, ultimo_dado_simulado_mc = previsor.plotar_previsao_com_mc()
+    
+    print(f"Ultimo Real: {ultimo_dado_real}")
+    print(f"Ultimo Simulado: {ultimo_dado_simulado}")
+    print(f"Ultimo Simulado MC: {ultimo_dado_simulado_mc}")
+    
 if __name__ == "__main__":
     
     # Parâmetros de entrada
-    Carteira_vencedora = ['BBAS3.SA', 'BPAC11.SA', 'EMBR3.SA', 'SMTO3.SA']
-    ticker = Carteira_vencedora[0]  # Substitua pelo ticker desejado
+    df = pd.read_csv('Resultados/resultados01.csv')
+    title_column = df.columns[0]
+    ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]] # Substitua pelo ticker desejado
     data_inicio = '2022-01-02'
     data_fim = '2023-05-02'
     
