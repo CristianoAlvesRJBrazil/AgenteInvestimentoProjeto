@@ -20,8 +20,8 @@ class PrecoEstoque:
         return preco_futuro / preco_atual
 
 if __name__ == "__main__":
-    # Configurações para a simulação
-    df = pd.read_csv('Resultados/resultados01.csv')
+    # Buscando a carteira para o Backtesting, inserindo os intervalos para analise e outros
+    df = pd.read_csv('resultados.csv')
     title_column = df.columns[0]
     ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
     inicio_dados = '2023-01-01'
@@ -29,10 +29,12 @@ if __name__ == "__main__":
     valor_desejado = 1.24
     num_simulacoes = 100
     num_dias = 60
+    
+    # Executando o método executar_simulações do código que cálcula a probabilidade do preço futuro da carteira
     resultados = epfcv2.executar_simulacoes(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
     epfcv2.salvar_resultados_csv(resultados) 
     
-    # Obtendo o Preço atual        
+    # Obtendo o Preço Atual do ativo para um intervalo desejado ao instanciar a classe PrecoEstoque       
     preco_estoque = PrecoEstoque()
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'

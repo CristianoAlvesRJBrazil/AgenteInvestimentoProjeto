@@ -99,7 +99,7 @@ class PortfolioOptimization:
             ativo = []
             for vencedora in carteira_vencedora[0]:
                 ativo.append(vencedora)
-            return ativo, retorno_acumulado_carteira
+            return ativo
 
 if __name__ == "__main__":
     # Lista de ativos da B3

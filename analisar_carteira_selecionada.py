@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
+from lista_ativos_setores import lista_atual_ibxx_02 as laibxx
 from carteira_aleatoria_otima_orientado_objeto import PortfolioOptimization
-from lista_ativos_setores import lista_atual_ibxx_02
 from MonteCarloSimulationCarteiraOB import MonteCarloSimulation
 
 class PortfolioAnalyzer:
@@ -69,9 +69,9 @@ class PortfolioAnalyzer:
 
 if __name__ == "__main__":
     # Parâmetros de entrada
-    lista_ativos = lista_atual_ibxx_02
-    inicio_dados = '2023-02-01'
-    final_dados = '2023-06-01'
+    lista_ativos = laibxx
+    inicio_dados = '2023-01-01'
+    final_dados = '2023-05-01'
     valor_desejado = 1.24
 
     # Criar instância do analisador de portfólio
