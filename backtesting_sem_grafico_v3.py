@@ -67,4 +67,4 @@ if __name__ == "__main__":
         print(f"O Agente não acertou a tendência!!!")
 
       
-        
+    #Carteira_Vencedora = ['TEND3.SA', 'MOVI3.SA', 'RRRP3.SA', 'ECOR3.SA'].

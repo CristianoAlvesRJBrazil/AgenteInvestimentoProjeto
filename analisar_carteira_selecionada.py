@@ -72,12 +72,12 @@ if __name__ == "__main__":
     lista_ativos = laibxx
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
-    valor_desejado = 1.24
+    valor_desejado = 1.08
 
     # Criar instância do analisador de portfólio
     analisador = PortfolioAnalyzer(lista_ativos, inicio_dados, final_dados, valor_desejado)
 
     # Executar análise completa
     analisador.executar_analise_completa()
-    #analisador.analisar_resultados()
+    
 

@@ -5,8 +5,8 @@ from arch import arch_model
 import pandas as pd
 
 # Obter dados históricos
-ticker = 'EMBR3.SA'
-data = yf.download(ticker, start='2022-01-01', end='2024-05-02')
+ticker = 'PETR4.SA'
+data = yf.download(ticker, start='2024-01-01', end='2024-05-02')
 precos = data['Close']
 
 # Calcular retornos diários
@@ -21,14 +21,23 @@ horizonte = 60
 previsao = modelo_ajustado.forecast(horizon=horizonte)
 volatilidade_futura = np.sqrt(previsao.variance.values[-1,:])
 
-# Simulação de Monte Carlo
+# Calcular a tendência histórica e a tendência recente
+tendencia_historica = retornos.mean()
+tendencia_recente = retornos.rolling(window=9).mean().iloc[-1]  # Média dos retornos dos últimos 30 dias
+
+# Ajustar a tendência de crescimento com base na recente
+# Se a tendência recente for menor que a histórica, reduzimos a tendência esperada
+tendencia_ajustada = tendencia_recente if tendencia_recente < tendencia_historica else tendencia_historica
+
+# Simulação de Monte Carlo com tendência ajustada
 n_simulacoes = 1000  # Número de trajetórias simuladas
 preco_atual = precos.iloc[-1]
 simulacoes = np.zeros((horizonte, n_simulacoes))
 
-#np.random.seed(42)  # Para reprodutibilidade
+np.random.seed(100)  # Para reprodutibilidade
+
 for i in range(n_simulacoes):
-    retornos_simulados = np.random.normal(0, volatilidade_futura)
+    retornos_simulados = np.random.normal(tendencia_ajustada, volatilidade_futura)
     simulacoes[:, i] = preco_atual * np.exp(np.cumsum(retornos_simulados))
 
 # Criar um índice de datas futuro
@@ -40,9 +49,7 @@ precos_futuros_medio = simulacoes.mean(axis=1)
 
 # Calcular a probabilidade de que o preço futuro esteja acima do preço atual
 precos_futuros_finais = simulacoes[-1, :]
-precos_futuros_finais_tamanho = len(precos_futuros_finais)
-probabilidade = sum(precos_futuros_finais > preco_atual)
-probabilidade_acima = probabilidade / precos_futuros_finais_tamanho
+probabilidade_acima = np.mean(precos_futuros_finais > preco_atual)
 
 # Exibir a probabilidade
 print(f'Probabilidade do preço estar acima de {preco_atual:.2f} em {horizonte} dias: {probabilidade_acima:.2%}')
@@ -65,6 +72,20 @@ for i in range(n_simulacoes):
 plt.plot(datas_futuras, precos_futuros_medio, color='red', label='Preço Médio Simulado', linewidth=2)
 plt.axhline(preco_atual, color='green', linestyle='--', label=f'Último Preço ({preco_atual:.2f})')
 plt.title(f'Simulações de Preços Futuros para {ticker}')
+plt.xlabel('Data')
+plt.ylabel('Preço')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# Comparar com tendência histórica e recente
+plt.figure(figsize=(10, 6))
+plt.plot(precos.index, precos, label='Preços Históricos', color='black')
+plt.axhline(preco_atual, color='green', linestyle='--', label=f'Último Preço ({preco_atual:.2f})')
+plt.plot(datas_futuras, precos_futuros_medio, color='red', label='Preço Médio Simulado', linewidth=2)
+plt.title(f'Comparação de Preços Históricos e Simulados para {ticker}')
 plt.xlabel('Data')
 plt.ylabel('Preço')
 plt.legend()
