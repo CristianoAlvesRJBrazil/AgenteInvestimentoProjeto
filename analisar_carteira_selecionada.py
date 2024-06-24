@@ -59,7 +59,7 @@ class PortfolioAnalyzer:
         print(f"A moda é: {round(moda, 4)}")
 
         print(f"Probabilidade do preço futuro estar acima do esperado: {round(mediana, 4)*100}%")
-        print(f"Carteira_Vencedora = {self.carteira_vencedora}.")
+        print(f"Carteira_Vencedora = {self.carteira_vencedora}")
 
     def executar_analise_completa(self):
         self.selecionar_carteira_vencedora()

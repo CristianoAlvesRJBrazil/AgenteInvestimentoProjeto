@@ -55,11 +55,14 @@ if __name__ == "__main__":
     alpha_long = 0.1
 
     # Obtendo os dados históricos dos Ativos da Carteira
-    inicio_dados = '2023-05-02'
-    final_dados = '2023-08-02'
-    carteira_vencedora = ['NTCO3.SA', 'RAIL3.SA', 'SMTO3.SA', 'EMBR3.SA']
-    ticker = carteira_vencedora
-    data = yf.download(ticker, start=inicio_dados, end=final_dados)['Close'].mean(axis=1)
+    inicio_dados = '2020-01-01'
+    final_dados = '2024-06-01'
+    carteira_vencedora = ['WEGE3.SA', 'SBSP3.SA', 'BBSE3.SA', 'CIEL3.SA']
+    #ticker = carteira_vencedora
+    #data = yf.download(ticker, start=inicio_dados, end=final_dados)['Close'].mean(axis=1)
+        
+    ticker = carteira_vencedora[0]
+    data = yf.download(ticker, start=inicio_dados, end=final_dados)['Close']
 
     # Criando o objeto do Investidor Estrategista
     estrategista = InvestidorEstrategista(short_window, long_window, alpha_short, alpha_long)

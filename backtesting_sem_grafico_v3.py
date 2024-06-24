@@ -25,8 +25,8 @@ if __name__ == "__main__":
     title_column = df.columns[0]
     ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
     inicio_dados = '2023-01-01'
-    final_dados = '2023-05-01'
-    valor_desejado = 1.20
+    final_dados = '2023-03-01'
+    valor_desejado = 1.10
     num_simulacoes = 100
     num_dias = 60
     
@@ -37,15 +37,15 @@ if __name__ == "__main__":
     # Obtendo o Preço Atual do ativo para um intervalo desejado ao instanciar a classe PrecoEstoque       
     preco_estoque = PrecoEstoque()
     inicio_dados = '2023-01-01'
-    final_dados = '2023-05-01'
+    final_dados = '2023-03-01'
     preco_atual_real = preco_estoque.obter_preco_atual(ticker, inicio_dados, final_dados)
     
     # Simulando a probabilidade do preço futuro estar acima do preço atual - Monte Carlo
     probabilidade_acima_preco_atual, preco_futuro_simulado = pfsg.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
     
     # Buscando dados da carteira - Intervalo Futuro Real
-    inicio_dados = '2023-05-01'
-    final_dados = '2023-08-01'
+    inicio_dados = '2023-03-01'
+    final_dados = '2023-06-01'
     preco_futuro_real = preco_estoque.obter_preco_futuro(ticker, inicio_dados, final_dados)
     
     # Calculando os Retornos Acumulados do Real e do Simulado    
