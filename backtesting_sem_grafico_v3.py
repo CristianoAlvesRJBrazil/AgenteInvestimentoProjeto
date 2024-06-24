@@ -26,7 +26,7 @@ if __name__ == "__main__":
     ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
-    valor_desejado = 1.24
+    valor_desejado = 1.20
     num_simulacoes = 100
     num_dias = 60
     

@@ -107,8 +107,8 @@ if __name__ == "__main__":
     lista_ativos = las.lista_atual_ibxx_02
     
     # Intervalo de Datas para análise 
-    inicio_dados = '2023-01-02'
-    final_dados = '2023-05-02'
+    inicio_dados = '2024-01-02'
+    final_dados = '2024-05-02'
     print(f"Para teste inicial, verifique se existe carteira que retone 12% de retorno para os 4 meses analisandos, digite: 1.12")
     valor_desejado = float(input("Informe o valor desejado de retorno acumulado: "))
 
