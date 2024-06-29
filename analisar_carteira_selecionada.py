@@ -1,6 +1,6 @@
 import pandas as pd
 import csv
-from lista_ativos_setores import lista_atual_ibxx_02 as laibxx
+import lista_ativos_setores 
 from carteira_aleatoria_otima_orientado_objeto import PortfolioOptimization
 from MonteCarloSimulationCarteiraOB import MonteCarloSimulation
 
@@ -16,11 +16,19 @@ class PortfolioAnalyzer:
         self.resultados = []
 
     def selecionar_carteira_vencedora(self):
+        """ Função que seleciona a carteira vencedora"""
         otimizador = PortfolioOptimization(self.lista_ativos, self.inicio_dados, self.final_dados)
         self.carteira_vencedora = otimizador.otimizar_carteira(self.valor_desejado)
         print(f"Carteira_Vencedora = {self.carteira_vencedora}.")
+        return self.carteira_vencedora
 
     def realizar_simulacao_monte_carlo(self):
+        """ Função que realiza a simulação de monte carlo"""
+        carteira = self.selecionar_carteira_vencedora()
+        self.carteira_vencedora = []
+        for carteira_selecionada in carteira:
+            self.carteira_vencedora.append(carteira_selecionada)
+            
         if self.carteira_vencedora is None:
             raise ValueError("Carteira vencedora não definida. Execute 'selecionar_carteira_vencedora' primeiro.")
 
@@ -32,6 +40,7 @@ class PortfolioAnalyzer:
             self.resultados.append(probabilidade_acima_preco_atual)
 
     def salvar_resultados_csv(self, filename='resultados.csv'):
+        """ Função que salva os resultados das probabilidades em arquivo csv"""
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow([self.carteira_vencedora])  # Escreve o cabeçalho
@@ -40,6 +49,7 @@ class PortfolioAnalyzer:
         print(f"Resultados salvos em {filename}.")
 
     def analisar_resultados(self, filename='resultados.csv'):
+        """ Função que realiza algumas estatísticas descritivas"""
         df = pd.read_csv(filename)
         
         # Resumo estatístico
@@ -62,14 +72,15 @@ class PortfolioAnalyzer:
         print(f"Carteira_Vencedora = {self.carteira_vencedora}")
 
     def executar_analise_completa(self):
-        self.selecionar_carteira_vencedora()
+        """ Função que executa as função necessárias para alcançar os objetivos"""
+        # self.selecionar_carteira_vencedora()
         self.realizar_simulacao_monte_carlo()
         self.salvar_resultados_csv()
         self.analisar_resultados()
 
 if __name__ == "__main__":
     # Parâmetros de entrada
-    lista_ativos = laibxx
+    lista_ativos = lista_ativos_setores.main()
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
     valor_desejado = 1.20

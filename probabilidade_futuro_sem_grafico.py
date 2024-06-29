@@ -59,9 +59,9 @@ def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
     return probabilidade_acima_preco_atual, precos_simulados
 
 if __name__ == "__main__":
-    ticker = ['IRBR3.SA', 'TEND3.SA', 'NTCO3.SA', 'IGTI11.SA']
-    inicio_dados = '2023-01-01'
-    final_dados = '2023-05-01'
+    ticker = ['SBSP3.SA', 'EMBR3.SA', 'PETZ3.SA', 'STBP3.SA']
+    inicio_dados = '2024-01-01'
+    final_dados = '2024-05-01'
     num_simulacoes = 1000
     num_dias = 60
     probabilidade_acima_preco_atual, precos_simulados_max = main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)

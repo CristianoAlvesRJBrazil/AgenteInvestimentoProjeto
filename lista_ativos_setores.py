@@ -5,9 +5,10 @@ import pandas as pd
 def main():
     
     # URL da página
-    # url = 'https://www.dadosdemercado.com.br/b3/ibxx'
+    # IBXX - Índice Brasil Hoje, Cotação, Histórico, Gráficos
+    url = 'https://www.dadosdemercado.com.br/b3/ibxx'
     # url = 'https://www.dadosdemercado.com.br/acoes'
-    url = 'https://www.dadosdemercado.com.br/b3/ibov'
+    # url = 'https://www.dadosdemercado.com.br/b3/ibov'
 
     # Faz a solicitação HTTP para obter o conteúdo da página
     response = requests.get(url)
@@ -26,7 +27,7 @@ def main():
         
         # Converte a tabela HTML para um DataFrame do pandas
         df = pd.read_html(first_table_html)[0]
-        #lista_ativos = df['Código'].copy()
+        #lista_ativos = df['Ticker'].copy()
         lista_ativos = df['Código'].copy()
         lista_ativos = lista_ativos.to_list()
         # Exibe o DataFrame
@@ -43,8 +44,8 @@ lista_atual_ibxx_02 = ['VALE3.SA', 'PETR4.SA', 'ITUB4.SA', 'PETR3.SA', 'BBAS3.SA
                     'ABEV3.SA', 'BPAC11.SA', 'RENT3.SA', 'EQTL3.SA', 'JBSS3.SA', 'RADL3.SA', 'SUZB3.SA', 'PRIO3.SA', 'RDOR3.SA', 'EMBR3.SA',
                     'SBSP3.SA', 'RAIL3.SA', 'UGPA3.SA', 'VBBR3.SA', 'BBSE3.SA', 'GGBR4.SA', 'ENEV3.SA', 'CMIG4.SA', 'VIVT3.SA', 'HAPV3.SA',
                     'BBDC3.SA', 'ASAI3.SA', 'KLBN11.SA', 'CPLE6.SA', 'BRFS3.SA', 'ENGI11.SA', 'CSAN3.SA', 'TOTS3.SA', 'TIMS3.SA', 'NTCO3.SA',
-                    'LREN3.SA', 'CCRO3.SA', 'HYPE3.SA', 'EGIE3.SA', 'CPLE3.SA', 'ELET6.SA', 'STBP3.SA', 'TRPL4.SA', 'SANB11.SA',
-                    'CXSE3.SA', 'CSNA3.SA', 'TAEE11.SA', 'SMFT3.SA', 'GOAU4.SA', 'CPFE3.SA', 'RRRP3.SA', 'CIEL3.SA', 'MULT3.SA', 'ENAT3.SA',
+                    'LREN3.SA', 'CCRO3.SA', 'HYPE3.SA', 'EGIE3.SA', 'CPLE3.SA', 'ELET6.SA', 'STBP3.SA', 'TRPL4.SA', 'SANB11.SA','CXSE3.SA',
+                    'CSNA3.SA', 'TAEE11.SA', 'SMFT3.SA', 'GOAU4.SA', 'CPFE3.SA', 'RRRP3.SA', 'CIEL3.SA', 'MULT3.SA', 'ENAT3.SA',
                     'PSSA3.SA', 'CMIN3.SA', 'RECV3.SA', 'CYRE3.SA', 'CRFB3.SA', 'BRKM5.SA', 'BRAP4.SA', 'IGTI11.SA', 'POMO4.SA', 'MGLU3.SA',
                     'SMTO3.SA', 'VAMO3.SA', 'CSMG3.SA', 'USIM5.SA', 'MRFG3.SA', 'AURE3.SA', 'GMAT3.SA', 'FLRY3.SA', 'SLCE3.SA', 'YDUQ3.SA',
                     'COGN3.SA', 'RAIZ4.SA', 'ARZZ3.SA', 'AZUL4.SA', 'SOMA3.SA', 'DIRR3.SA', 'VIVA3.SA', 'IRBR3.SA', 'MRVE3.SA', 'ECOR3.SA',

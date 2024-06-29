@@ -1,4 +1,3 @@
-# Importação das bibliotecas necessárias
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -16,6 +15,42 @@ class MonteCarloSimulation:
         self.precos_simulados_df = None
         self.preco_atual = None
     
+    def obter_dados_historicos(self):
+        """Obtém os dados históricos de fechamento dos ativos, ignorando os ativos que não retornarem dados."""
+        dados_todos_ativos = []
+        ativos_validos = []
+
+        for ativo in self.lista_ativos:
+            try:
+                # Baixa os dados do ativo
+                dados = yf.download(self.ticker, start=self.inicio_dados, end=self.final_dados)['Close'].mean(axis=1)
+                # Verifica se os dados retornados não estão vazios
+                if dados.empty:
+                    print(f'Dados para {ativo} estão vazios. Ignorando.')
+                    continue
+
+                # Renomeia a coluna para o nome do ativo
+                dados.rename(ativo, inplace=True)
+                # Adiciona os dados à lista
+                dados_todos_ativos.append(dados)
+                ativos_validos.append(ativo)
+                print(f'Dados para {ativo} obtidos com sucesso.')
+
+            except Exception as e:
+                print(f'Erro ao obter dados para {ativo}: {e}')
+                continue
+
+        # Concatena todos os dados em um DataFrame
+        if dados_todos_ativos:
+            dados_consolidados = pd.concat(dados_todos_ativos, axis=1)
+        else:
+            dados_consolidados = pd.DataFrame()
+
+        # Atualiza a lista de ativos com apenas os ativos válidos
+        self.lista_ativos = ativos_validos
+
+        return dados_consolidados
+            
     def obter_dados_historicos(self):
         """Obtém os dados históricos do ativo."""
         try:
@@ -84,36 +119,44 @@ class MonteCarloSimulation:
         plt.legend()
         plt.show()
 
-def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
+    def main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados):
 
-    simulacao = MonteCarloSimulation(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
+        simulacao = MonteCarloSimulation(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
 
-    precos_simulados_df = simulacao.simular_precos()
+        precos_simulados_df = simulacao.simular_precos()
 
-    if precos_simulados_df is not None:
-        probabilidade_acima_preco_atual = simulacao.calcular_probabilidade_acima_preco_atual()
-        print(f"Resultados da Predição:")
-        print(f"Probabilidade do preço futuro estar acima do preço atual nos próximos 60 dias: {probabilidade_acima_preco_atual:.2%}")
-        
-        simulacao.plotar_precos_simulados()
-        simulacao.plotar_distribuicao_precos_futuros()
+        if precos_simulados_df is not None:
+            probabilidade_acima_preco_atual = simulacao.calcular_probabilidade_acima_preco_atual()
+            print(f"Resultados da Predição:")
+            print(f"Probabilidade do preço futuro estar acima do preço atual após 60 dias: {probabilidade_acima_preco_atual:.2%}")
+            
+            simulacao.plotar_precos_simulados()
+            simulacao.plotar_distribuicao_precos_futuros()
 
 if __name__ == "__main__":
+    
     # Intervalo de dados e retorno acumulado desejando
     inicio_dados = '2024-01-01'
     final_dados = '2024-05-01'
     valor_desejado = 1.24
     
     # Acessar a lista de ativos e escolher a carteira otimizada    
-    lista_ativos = las.lista_atual_ibxx_02
-    portfolio = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
-    carteira_vencedora = portfolio.otimizar_carteira(valor_desejado)
-        
-    # Chamar a classe MonteCarloSimulationCarteiraOB
-    ticker = carteira_vencedora
+    lista_ativos = las.main()
+    
+    # Chamando o otimizador de carteira
+    otimizador = PortfolioOptimization(lista_ativos, inicio_dados, final_dados)
+    carteira_vencedora = otimizador.otimizar_carteira(valor_desejado)
+    print(f"Carteira Vencedora = {carteira_vencedora}")
+    
+    # Tratando os dados da carteira vencedora
+    carteira_selecionada= []    
+    for carteira in carteira_vencedora:
+        carteira_selecionada.append(carteira)
+    
+    # Realizando a simulação de Monte Carlo   
+    ticker  = carteira_selecionada
     num_simulacoes = 1000
     num_dias = 60
-    main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
-
-
-
+    MonteCarloSimulation.main(ticker, num_simulacoes, num_dias, inicio_dados, final_dados)
+    
+    
