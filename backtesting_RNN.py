@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 
-
 class PrecoEstoque:
     def __init__(self):
         pass
@@ -23,13 +22,14 @@ class PrecoEstoque:
 
 if __name__ == "__main__":
     # Buscando a carteira para o Backtesting, inserindo os intervalos para analise e outros
-    df = pd.read_csv('Resultados/resultados01.csv')
+    df = pd.read_csv('Resultados/resultados10.csv')
     title_column = df.columns[0]
     ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
+    #ticker = ['VIVT3.SA', 'ECOR3.SA', 'POMO4.SA', 'MULT3.SA']
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
     valor_desejado = 1.20
-    num_simulacoes = 100
+    num_simulacoes = 10000
     num_dias = 60
     
     # Obtendo o Preço Atual do ativo para um intervalo desejado ao instanciar a classe PrecoEstoque       
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     
     # Calculando os Retornos Acumulados do Real e do Simulado    
     retorno_acumulado_real = preco_estoque.calcular_retorno_acumulado(preco_futuro_real, preco_atual_real)    
-    retorno_acumulado_simulado = preco_estoque.calcular_retorno_acumulado(25.193741, preco_atual_real)
+    retorno_acumulado_simulado = preco_estoque.calcular_retorno_acumulado(25.28191393618134, preco_atual_real)
     
     # Resultado do Backtesting
     print()

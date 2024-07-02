@@ -112,7 +112,7 @@ class ModeloFinanceiro:
         plt.plot(self.dados['Date'].values[indice_inicio_previsao:], self.precos_previstos, color='blue', linestyle='--', label='Previsão RNN-LSTM')
         
         for i in range(self.num_simulacoes):
-            plt.plot(datas_futuras, precos_simulados[:, i], color='red', alpha=0.01)
+            plt.plot(datas_futuras, precos_simulados[:, i], color='grey', alpha=0.1)
         
         plt.xlabel('Data')
         plt.ylabel('Preço de Fechamento')
@@ -124,8 +124,7 @@ class ModeloFinanceiro:
     def estatisticas_simulacao(self, precos_simulados):
         simulacao_df_rnn = pd.DataFrame(precos_simulados)
         estatisticas_simulacao_rnn = simulacao_df_rnn.describe().mean(axis=1)
-        print(estatisticas_simulacao_rnn) 
-        return estatisticas_simulacao_rnn
+        print(estatisticas_simulacao_rnn)
 
     @staticmethod
     def executar(ticker, data_inicial, data_final, tamanho_sequencia, num_simulacoes, num_dias):
@@ -149,22 +148,37 @@ class ModeloFinanceiro:
         precos_simulados_rnn = modelo.simulacao_monte_carlo(media_dif_rnn, desvio_padrao_rnn)
         prob_acima_preco_atual = modelo.calcular_prob_acima_preco_atual(precos_simulados_rnn)
         print(f'Probabilidade dos preços futuros estarem acima do preço atual: {prob_acima_preco_atual:.2%}')
-        modelo.visualizar_resultados(precos_simulados_rnn)
-        modelo.estatisticas_simulacao(precos_simulados_rnn)
-        return precos_simulados_rnn
-        
-if __name__ == "__main__":    
+        #modelo.visualizar_resultados(precos_simulados_rnn)
+        #modelo.estatisticas_simulacao(precos_simulados_rnn)
+
+        return precos_simulados_rnn, prob_acima_preco_atual
+
+if __name__ == "__main__":
     # Buscando a carteira para o Backtesting, inserindo os intervalos para análise e outros
-    df = pd.read_csv('Resultados/resultados01.csv')
+    df = pd.read_csv('Resultados/resultados10.csv')
     title_column = df.columns[0]
     tickers = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
+    #tickers = ['VIVT3.SA', 'ECOR3.SA', 'POMO4.SA', 'MULT3.SA']
     data_inicial = '2022-01-01'
     data_final = '2023-05-01'
     tamanho_sequencia = 180
     num_simulacoes = 10000
     num_dias = 60
     
-    # Média dos preços simulados
-    precos_simulados_rnn = ModeloFinanceiro.executar(tickers, data_inicial, data_final, tamanho_sequencia, num_simulacoes, num_dias)
-    print(f"Média dos preços futuros simulados: {np.mean(precos_simulados_rnn[:, -1])}")
+    # Armazenar todas as simulações
+    precos_medios_simulados = []
+    todas_simulacoes = []
+    resultados_simulacoes = []
+    for i in range(5):
+        precos_simulados_rnn, prob_acima_preco_atual = ModeloFinanceiro.executar(tickers, data_inicial, data_final, tamanho_sequencia, num_simulacoes, num_dias)
+        resultados_simulacoes.append(prob_acima_preco_atual)
+        precos_medios_simulados.append(np.mean(precos_simulados_rnn[:, -1]))
     
+        # Calculando a média dos preços futuros simulados
+        media_precos_futuros = np.mean(resultados_simulacoes)
+        todas_simulacoes.append(media_precos_futuros)
+        
+    print(f"Média das probabilidades: {round(np.mean(todas_simulacoes), 4)}")
+    print(f"Média dos preços futuros simulados: {np.mean(precos_medios_simulados)}")
+    
+

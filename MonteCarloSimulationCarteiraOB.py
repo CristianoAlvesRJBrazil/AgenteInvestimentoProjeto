@@ -138,7 +138,7 @@ if __name__ == "__main__":
     # Intervalo de dados e retorno acumulado desejando
     inicio_dados = '2024-01-01'
     final_dados = '2024-05-01'
-    valor_desejado = 1.24
+    valor_desejado = 1.20
     
     # Acessar a lista de ativos e escolher a carteira otimizada    
     lista_ativos = las.main()

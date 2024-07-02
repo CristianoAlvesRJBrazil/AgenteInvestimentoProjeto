@@ -3,9 +3,9 @@ Engenharia de Processo - Backtesting
 Arquivos para executar o backtesting:
 
 1. analisar_carteira_selecionada.py
-2. RNN_Monte_Carlo_POO_Carteira.py
-3. backtesting_sem_grafico_v3
-4. backtesting_RNN
+2. RNN_Monte_Carlo_POO_Carteira_Média.py
+3. backtesting_RNN
+4. backtesting_sem_grafico_v3
 
 Arquivos necessários:
 
@@ -13,4 +13,5 @@ Arquivos necessários:
 2. MonteCarloSimulationCarteiraOB.py 
 3. lista_ativos_setores.py
 4. Outros
+
 

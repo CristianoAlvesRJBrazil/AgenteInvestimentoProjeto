@@ -24,13 +24,13 @@ class PrecoEstoque:
 
 if __name__ == "__main__":
     # Buscando a carteira para o Backtesting, inserindo os intervalos para analise e outros
-    df = pd.read_csv('Resultados/resultados01.csv')
+    df = pd.read_csv('Resultados/resultados02.csv')
     title_column = df.columns[0]
     ticker = [title_column[2:10], title_column[14:22], title_column[26:34], title_column[38:46]]
     inicio_dados = '2023-01-01'
     final_dados = '2023-05-01'
     valor_desejado = 1.20
-    num_simulacoes = 100
+    num_simulacoes = 1000
     num_dias = 60
     
     # Executando o método executar_simulações do código que cálcula a probabilidade do preço futuro da carteira
