@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Cache de dados de mercado (regenerável)
+dados_cache/
+
+# IDE
+.vscode/
+.idea/

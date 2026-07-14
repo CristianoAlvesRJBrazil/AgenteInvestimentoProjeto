@@ -1,0 +1,42 @@
+{
+  "janela": {
+    "inicio": "2024-01-02",
+    "fim": "2024-05-01"
+  },
+  "carteira": {
+    "CMIG4.SA": 0.25,
+    "PETR4.SA": 0.25,
+    "SUZB3.SA": 0.25,
+    "VBBR3.SA": 0.25
+  },
+  "criterio": {
+    "nome": "sharpe",
+    "valor": 2.4067790491066208
+  },
+  "metricas_selecao": {
+    "retorno_acumulado": 1.1089234808914599,
+    "retorno_anualizado": 0.3740110330480897,
+    "volatilidade_anualizada": 0.135895630157692,
+    "sharpe": 2.4067790491066208,
+    "sortino": 2.132289382241273,
+    "max_drawdown": -0.050221167563671565,
+    "var_95": 0.013561722149801015,
+    "cvar_95": 0.01681446878761822
+  },
+  "monte_carlo": {
+    "media": 1.082209991500933,
+    "desvio_padrao": 0.07189422321510539,
+    "p05": 0.9692714785465117,
+    "p25": 1.0321668746282615,
+    "mediana": 1.0801335082081154,
+    "p75": 1.1297968573482784,
+    "p95": 1.2035773166303958,
+    "prob_acima_atual": 0.875
+  },
+  "parametros": {
+    "num_carteiras": 1000,
+    "num_simulacoes": 10000,
+    "horizonte_dias": 60,
+    "seed": 42
+  }
+}
